@@ -385,7 +385,7 @@ class ViewHierarchyCell: UITableViewCell {
         expandButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(8)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(20)
+            make.width.height.equalTo(40)
         }
         
         classNameLabel.snp.makeConstraints { make in
@@ -401,7 +401,7 @@ class ViewHierarchyCell: UITableViewCell {
         }
         
         printButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-8)
+            make.left.equalTo(frameLabel.snp.right).offset(8)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(44)
         }
@@ -420,7 +420,7 @@ class ViewHierarchyCell: UITableViewCell {
         frameLabel.font = UIFont.systemFont(ofSize: 12)
         frameLabel.textColor = .gray
         
-        printButton.setTitle("📋", for: .normal)
+        printButton.setTitle("👀", for: .normal)
         printButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         printButton.addTarget(self, action: #selector(printAction), for: .touchUpInside)
     }
