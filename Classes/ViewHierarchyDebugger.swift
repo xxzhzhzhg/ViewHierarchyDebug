@@ -67,6 +67,7 @@ private class DebugButtonHandler: NSObject {
     init(viewController: UIViewController) {
         self.viewController = viewController
         super.init()
+        handleSingleTap()
     }
     
     @objc func handleSingleTap() {
