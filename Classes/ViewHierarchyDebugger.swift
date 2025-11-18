@@ -31,7 +31,19 @@ public class ViewHierarchyDebugger {
             
             // 创建一个包装器来处理按钮点击
             let buttonHandler = DebugButtonHandler(viewController: viewController)
-            btn.addTarget(buttonHandler, action: #selector(DebugButtonHandler.debugButtonAction), for: .touchUpInside)
+            
+            // 单击手势
+            let singleTap = UITapGestureRecognizer(target: buttonHandler, action: #selector(DebugButtonHandler.handleSingleTap))
+            singleTap.numberOfTapsRequired = 1
+            btn.addGestureRecognizer(singleTap)
+            
+            // 双击手势
+            let doubleTap = UITapGestureRecognizer(target: buttonHandler, action: #selector(DebugButtonHandler.handleDoubleTap))
+            doubleTap.numberOfTapsRequired = 2
+            btn.addGestureRecognizer(doubleTap)
+            
+            // 关键：确保单击手势在双击手势失败后才生效
+            singleTap.require(toFail: doubleTap)
             
             // 将处理器存储到按钮中，防止被释放
             objc_setAssociatedObject(btn, &AssociatedKeys.buttonHandler, buttonHandler, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -57,10 +69,13 @@ private class DebugButtonHandler: NSObject {
         super.init()
     }
     
-    @objc func debugButtonAction() {
+    @objc func handleSingleTap() {
         guard let viewController = viewController else { return }
-        
         print("⭐️⭐️⭐️: \(type(of: viewController))")
+    }
+    
+    @objc func handleDoubleTap() {
+        guard let viewController = viewController else { return }
         ViewHierarchyDebugger.showViewHierarchyDebugger(from: viewController)
     }
 }
