@@ -76,6 +76,7 @@ class ViewHierarchyDebugViewController: UIViewController {
     // MARK: - Properties
     private var rootView: UIView
     private var rootViewController: UIViewController?
+    private var scrollView: UIScrollView!
     private var tableView: UITableView!
     private var viewItems: [ViewItem] = []
     private var containerView: UIView!
@@ -134,6 +135,7 @@ class ViewHierarchyDebugViewController: UIViewController {
         
         setupContainerView()
         setupTitleAndCloseButton()
+        setupScrollView()
         setupTableView()
     }
     
@@ -147,6 +149,16 @@ class ViewHierarchyDebugViewController: UIViewController {
         containerView.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(UIScreen.main.bounds.height * 0.6)
+        }
+    }
+    
+    private func setupScrollView() {
+        scrollView = UIScrollView()
+        containerView.addSubview(scrollView)
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(60)
+            make.left.right.bottom.equalToSuperview()
         }
     }
     
@@ -180,12 +192,23 @@ class ViewHierarchyDebugViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ViewHierarchyCell.self, forCellReuseIdentifier: "ViewHierarchyCell")
         tableView.separatorStyle = .none
-        containerView.addSubview(tableView)
+        scrollView.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
-            make.left.right.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
+            make.height.equalTo(scrollView)
+            make.width.equalTo(UIScreen.main.bounds.width * 2)
         }
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleSingleTap(_:)))
+        singleTap.numberOfTapsRequired = 1
+        tableView.addGestureRecognizer(singleTap)
+        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        tableView.addGestureRecognizer(doubleTap)
+        
+        singleTap.require(toFail: doubleTap)
     }
     
     // MARK: - Data Management
@@ -248,6 +271,25 @@ class ViewHierarchyDebugViewController: UIViewController {
     @objc private func closeAction() {
         dismiss(animated: true)
     }
+    
+    @objc private func handleSingleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: tableView)
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            let item = viewItems[indexPath.row]
+            print("⭐️⭐️⭐️⭐️⭐️: \(item.className) -- Frame: \(item.frame) -- 👁️ Hidden: \(item.view.isHidden), Alpha: \(item.view.alpha)")
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    @objc private func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: tableView)
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            let item = viewItems[indexPath.row]
+            if !item.view.subviews.isEmpty {
+                toggleExpand(at: indexPath.row)
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -275,11 +317,6 @@ extension ViewHierarchyDebugViewController: UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let item = viewItems[indexPath.row]
-        if !item.view.subviews.isEmpty {
-            toggleExpand(at: indexPath.row)
-        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -351,7 +388,7 @@ class ViewHierarchyCell: UITableViewCell {
         printButton.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(-8)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(44)
         }
     }
     
@@ -388,6 +425,7 @@ class ViewHierarchyCell: UITableViewCell {
         frameLabel.text = "Frame: \(item.frame)"
         
         containerView.backgroundColor = item.level % 2 == 0 ? UIColor.systemGray6 : UIColor.white
+        printButton.backgroundColor = item.view.backgroundColor
     }
     
     // MARK: - Actions

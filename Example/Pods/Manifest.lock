@@ -4,7 +4,6 @@ PODS:
     - SnapKit
 
 DEPENDENCIES:
-  - SnapKit
   - ViewHierarchyDebug (from `../`)
 
 SPEC REPOS:
@@ -17,8 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
-  ViewHierarchyDebug: 16ffc6976594ba26fce35c1ab0d24e0bf05fe9fe
+  ViewHierarchyDebug: a3e644a7643d5e4fc957baa4f75818ed39ae9dd3
 
-PODFILE CHECKSUM: 91a03a54480b5d41136735d482bafa1629ada597
+PODFILE CHECKSUM: daadb1a3def0f184552f9387b0eea7a3fbbf5161
 
 COCOAPODS: 1.16.2
