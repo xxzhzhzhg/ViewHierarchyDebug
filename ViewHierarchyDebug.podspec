@@ -11,12 +11,6 @@ Pod::Spec.new do |s|
   s.version          = '0.1.2'
   s.summary          = '一个用于调试iOS视图层次结构的工具'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
 ViewHierarchyDebug是一个轻量级的iOS视图层次结构调试工具，提供以下功能：
 - 打印视图层次结构
@@ -27,22 +21,15 @@ ViewHierarchyDebug是一个轻量级的iOS视图层次结构调试工具，提�
                        DESC
 
   s.homepage         = 'https://github.com/xxzhzhzhg/ViewHierarchyDebug'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xxsdf' => 'xxzhzhzh@gmail.com' }
-  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :branch => 'master' }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+
+  # 使用 tag 对应版本
+  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :tag => s.version }
 
   s.ios.deployment_target = '13.0'
-  s.swift_versions = '5.0'
+  s.swift_versions = ['5.0']
 
   s.source_files = 'Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'ViewHierarchyDebug' => ['ViewHierarchyDebug/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-   s.dependency 'SnapKit'
+  s.dependency 'SnapKit'
 end
