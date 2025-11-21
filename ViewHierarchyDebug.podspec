@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ViewHierarchyDebug'
-  s.version          = '0.1.2'
+  s.version          = '0.1.2'  # 可以保留版本号，但不依赖 Git tag
   s.summary          = '一个用于调试iOS视图层次结构的工具'
 
   s.description      = <<-DESC
@@ -24,8 +24,8 @@ ViewHierarchyDebug是一个轻量级的iOS视图层次结构调试工具，提�
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xxsdf' => 'xxzhzhzh@gmail.com' }
 
-  # 使用 tag 对应版本
-  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :tag => s.version }
+  # 不使用 tag，直接使用 master 分支
+  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :branch => 'master' }
 
   s.ios.deployment_target = '13.0'
   s.swift_versions = ['5.0']
