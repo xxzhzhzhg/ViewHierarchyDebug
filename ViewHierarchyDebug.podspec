@@ -30,7 +30,7 @@ ViewHierarchyDebug是一个轻量级的iOS视图层次结构调试工具，提�
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xxsdf' => 'xxzhzhzh@gmail.com' }
-  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :tag => s.version.to_s }
+  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :branch => 'master' }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
