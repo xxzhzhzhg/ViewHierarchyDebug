@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ViewHierarchyDebug'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = '一个用于调试iOS视图层次结构的工具'
 
 # This description is used to generate tags and improve search results.
@@ -26,11 +26,11 @@ ViewHierarchyDebug是一个轻量级的iOS视图层次结构调试工具，提�
 这个工具可以帮助开发者快速定位UI问题，提高开发效率。
                        DESC
 
-  s.homepage         = 'https://github.com/ebingxfs/ViewHierarchyDebug'
+  s.homepage         = 'https://github.com/xxzhzhzhg/ViewHierarchyDebug'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'xxsdf' => 'xxsdf@gmail.com' }
-  s.source           = { :git => 'https://github.com/ebingxfs/ViewHierarchyDebug.git', :branch => 'master' }
+  s.author           = { 'xxsdf' => 'xxzhzhzh@gmail.com' }
+  s.source = { :git => 'https://github.com/xxzhzhzhg/ViewHierarchyDebug.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '13.0'
